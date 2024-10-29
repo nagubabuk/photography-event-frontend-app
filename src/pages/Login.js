@@ -3,15 +3,17 @@ import { z } from 'zod'
 import { toFormikValidationSchema } from 'zod-formik-adapter'
 import toast, { Toaster } from 'react-hot-toast'
 import { useState } from 'react'
+import { login } from '../api/api'
+import {useNavigate} from 'react-router-dom';
 
 const validationSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
-export default function LoginForm() {
+export default function Login() {
   const [isLoading, setIsLoading] = useState(false)
-
+  const navigate = useNavigate()
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -21,9 +23,16 @@ export default function LoginForm() {
     onSubmit: async (values) => {
       setIsLoading(true)
       // Simulating API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      setIsLoading(false)
-      toast.success('Logged in successfully!')
+      let res=await login(values);
+      if(res?.data&& res?.data?.token){
+        setIsLoading(false)
+        toast.success('Logged in successfully!')
+        localStorage.setItem("token",res.data.token)
+        localStorage.setItem("user", JSON.stringify(res.data.user))
+        navigate('/dashboard')
+      }
+
+    
       console.log(values)
     },
   })
