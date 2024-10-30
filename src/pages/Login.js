@@ -23,17 +23,24 @@ export default function Login() {
     onSubmit: async (values) => {
       setIsLoading(true)
       // Simulating API call
-      let res=await login(values);
-      if(res?.data&& res?.data?.token){
+    try {
+      let res = await login(values);
+      if (res?.data && res?.data?.token) {
         setIsLoading(false)
         toast.success('Logged in successfully!')
-        localStorage.setItem("token",res.data.token)
+        localStorage.setItem("token", res.data.token)
         localStorage.setItem("user", JSON.stringify(res.data.user))
         navigate('/dashboard')
       }
 
+    } catch (error) {
+      console.log("error is", error)
+
+      setIsLoading(false)
+      const errorMessage = error.response?.data?.message || 'Login failed. Please try again.';
+      toast.error(errorMessage);
+    }
     
-      console.log(values)
     },
   })
 
