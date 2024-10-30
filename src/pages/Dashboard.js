@@ -24,14 +24,14 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-200">
       <Navbar />
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-3xl font-bold text-gray-800">Your Events</h1>
           <Link
             to="/create-event"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
+            className="bg-indigo-800 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
           >
             Create Event
           </Link>
@@ -62,7 +62,7 @@ const Dashboard = () => {
                     <td className="px-4 py-3">
                       <Link
                         to={`/events/${event._id}`}
-                        className="text-blue-500 hover:text-blue-600 font-medium"
+                        className="text-indigo-800 hover:text-indigo-600 font-medium"
                         onClick={(e) => e.stopPropagation()}
                       >
                         View Details
