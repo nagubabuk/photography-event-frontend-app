@@ -4,7 +4,7 @@ import { toFormikValidationSchema } from 'zod-formik-adapter'
 import toast, { Toaster } from 'react-hot-toast'
 import { useState } from 'react'
 import { login } from '../api/api'
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 const validationSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -105,6 +105,12 @@ export default function Login() {
             </button>
           </div>
         </form>
+
+        <div className="text-sm text-center">
+          <Link to="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
+            Don't have an account? Sign up
+          </Link>
+        </div>
       </div>
       <Toaster position="top-right" />
     </div>
